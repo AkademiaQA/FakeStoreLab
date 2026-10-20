@@ -1,0 +1,40 @@
+/* OutPost Design System — Tokens (kolorystyka, na bazie "Mono Lime")
+   Źródło: design-preview/08-mono-lime.html + design-preview/showcase-mono-lime.html
+   Zmieniaj TYLKO tutaj, jeśli chcesz przestroić całą aplikację. */
+:root{
+  /* Tła */
+  --bg:#FAFAFA;
+  --surface:#F4F4F5;
+  --card:#FFFFFF;
+
+  /* Marka / akcent */
+  --primary:#111827;   /* czerń/grafit — główny kolor marki */
+  --secondary:#4B5563;
+  --accent:#A3E635;    /* limonka — akcent, CTA, highlight */
+  --info:#2563EB;
+
+  /* Tekst */
+  --text:#111827;
+  --muted:#6B7280;
+
+  /* Linie / obramowania */
+  --border:#E5E5E5;
+
+  /* Stany / statusy (badge, alerty) */
+  --status-transit-bg:#DBEAFE;   --status-transit-text:#1D4ED8;
+  --status-ready-bg:#FEF9C3;     --status-ready-text:#854D0E;
+  --status-delivered-bg:#111827; --status-delivered-text:#FFFFFF;
+  --status-cancel-bg:#FEE2E2;    --status-cancel-text:#B91C1C;
+  --status-created-bg:#A3E635;   --status-created-text:#111827;
+
+  --alert-info-bg:#EFF6FF;    --alert-info-text:#1D4ED8;    --alert-info-border:#BFDBFE;
+  --alert-success-bg:#ECFCCB; --alert-success-text:#365314; --alert-success-border:#A3E635;
+  --alert-warn-bg:#FEF9C3;    --alert-warn-text:#854D0E;    --alert-warn-border:#FDE68A;
+  --alert-error-bg:#FEE2E2;   --alert-error-text:#B91C1C;   --alert-error-border:#FECACA;
+
+  --danger:#B91C1C;
+
+  /* Typografia / kształt — charakterystyczne dla Mono Lime: kwadratowe rogi, uppercase */
+  --font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --radius:0px;
+}

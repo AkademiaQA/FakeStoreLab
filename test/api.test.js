@@ -239,33 +239,6 @@ test('CORS, HEAD and preflight allow external API clients', async () => {
   assert.equal(head.headers.get('x-total-count'), '24');
 });
 
-test('OpenAPI exposes every CRUD method, strict PUT and partial PATCH', async () => {
-  const { body: spec } = await request('/openapi.json');
-  assert.equal(spec.openapi, '3.1.0');
-  for (const [resource, schema] of [['products', 'Product'], ['users', 'User'], ['carts', 'Cart']]) {
-    assert.ok(spec.paths[`/${resource}/{id}`].patch);
-    assert.equal(spec.paths[`/${resource}/{id}`].delete.responses[200], undefined);
-    assert.equal(spec.paths[`/${resource}/{id}`].delete.responses[204].content, undefined);
-    assert.equal(spec.paths[`/${resource}/{id}`].delete.responses[404], undefined);
-    assert.deepEqual(spec.paths[`/${resource}/{id}`].delete.security, [{ bearerAuth: [] }]);
-    assert.ok(spec.paths[`/${resource}/{id}`].delete.responses[401]);
-    for (const method of ['get', 'put', 'patch']) assert.equal(spec.paths[`/${resource}/{id}`][method].security, undefined);
-    assert.ok(spec.components.schemas[`${schema}Input`].required.length > 0);
-    assert.equal(spec.components.schemas[`${schema}Patch`].required, undefined);
-    assert.ok(spec.paths[`/${resource}`].get.parameters.some(item => item.name === 'page'));
-  }
-  const visit = value => {
-    if (!value || typeof value !== 'object') return;
-    if (value.$ref) {
-      const resolved = value.$ref.slice(2).split('/').reduce((object, key) => object?.[key], spec);
-      assert.ok(resolved, value.$ref);
-    }
-    Object.values(value).forEach(visit);
-  };
-  visit(spec);
-  assert.deepEqual((await request('/docs-data.json')).body, spec);
-});
-
 test('website, assets and direct documentation routes are served', async () => {
   for (const path of ['/', '/docs', '/playground', '/styles.css', '/tokens.css', '/app.js', '/favicon.svg', '/images/product-0.svg']) {
     const response = await fetch(base + path);
@@ -276,5 +249,6 @@ test('website, assets and direct documentation routes are served', async () => {
   assert.ok(response.headers.get('content-type').includes('text/html'));
   assert.ok(response.headers.get('content-security-policy').includes("default-src 'self'"));
   assert.equal((await fetch(base + '/package.json')).status, 404);
+  assert.equal((await fetch(base + '/unknown.json')).status, 404);
   assert.equal((await fetch(base + '/%2e%2e%2fpackage.json')).status, 404);
 });

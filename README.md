@@ -36,9 +36,9 @@ POST zwraca dane i nowe ID, PUT zastępuje reprezentację, PATCH scala wybrane p
 
 Edytuj JSON i query params, wysyłaj żądania oraz sprawdzaj status, czas odpowiedzi, body i nagłówki. Logowanie automatycznie uzupełnia pole tokenu dla DELETE.
 
-### 📖 Dokumentacja i OpenAPI
+### 📖 Dokumentacja
 
-Opisy endpointów, schematy danych, przykłady cURL i specyfikacja OpenAPI 3.1 do importu w narzędziach API.
+Opisy endpointów, schematy danych i przykłady cURL.
 
 ### ☁️ Gotowość do Railway
 
@@ -98,7 +98,7 @@ Testy korzystają z wbudowanego runnera `node:test`. Uruchamiają własny serwer
 - Odpowiedź 204 bez body dla istniejących i nieistniejących ID po autoryzacji.
 - Niepoprawny JSON, walidacja danych, limit body i niedozwolone metody.
 - CORS, preflight OPTIONS, HEAD i nagłówki paginacji.
-- Kontrakt OpenAPI, dostępność stron i lokalnych ilustracji.
+- Dostępność stron i lokalnych ilustracji.
 
 ## 🛠️ Technologie
 
@@ -108,7 +108,7 @@ Testy korzystają z wbudowanego runnera `node:test`. Uruchamiają własny serwer
 | Frontend | HTML, CSS, JavaScript — bez frameworka |
 | Wygląd | Mono Lime, responsywny układ, lokalne ilustracje SVG |
 | Uwierzytelnianie | JWT HS256, `node:crypto`, token wymagany tylko dla DELETE |
-| Dokumentacja | OpenAPI 3.1 i własna strona dokumentacji |
+| Dokumentacja | Własna strona dokumentacji API |
 | Testy | `node:test`, `node:assert/strict`, wbudowany `fetch` |
 | Wdrożenie | Docker i Railway |
 | Dane | Stałe dane demonstracyjne, bez bazy i trwałego zapisu |
@@ -119,7 +119,6 @@ Testy korzystają z wbudowanego runnera `node:test`. Uruchamiają własny serwer
 src/
   api.js             # Obsługa zasobów, walidacji, zapytań i JWT
   data.js            # Produkty, użytkownicy i koszyki
-  openapi.js         # Aktualny kontrakt OpenAPI
 public/
   index.html         # Wspólny szkielet strony i stopka
   app.js             # Strona główna, dokumentacja i playground
@@ -127,8 +126,6 @@ public/
   images/            # Lokalne ilustracje produktów
 design/
   design/            # Tokeny i materiały systemu Mono Lime
-openapi/
-  docs-data.json     # Źródłowa specyfikacja API
 test/
   api.test.js        # Testy integracyjne HTTP
 server.js            # Serwer HTTP i serwowanie plików
@@ -158,15 +155,11 @@ docker build -t fakestore-lab .
 docker run --rm -p 3000:3000 -e PORT=3000 fakestore-lab
 ```
 
-## 🌐 Strony i kontrakt API
+## 🌐 Strony i API
 
 - `/` — strona główna z prawdziwym odczytem przykładowego produktu.
 - `/docs` — dokumentacja, schematy i gotowe przykłady.
 - `/playground` — prawdziwe żądania HTTP, edytor JSON, query params, cURL, statusy i nagłówki.
-- `/openapi.json` — aktualny OpenAPI 3.1 do importu w Postmanie; alias `/docs-data.json`.
-
-Oryginał `openapi/docs-data.json` pozostaje niezmieniony. `src/openapi.js` rozszerza go o rzeczywiście zaimplementowane zachowania.
-
 ### 📦 Zasoby
 
 `/products` (24), `/users` (12), `/carts` (10):
@@ -190,7 +183,7 @@ Wymagane pola:
 
 - Produkt: `title`, `price`, `description`, `category`, `image`.
 - Użytkownik: `username`, `email`, `password`.
-- Koszyk: `userId`, `products` (tablica pełnych obiektów produktu, **zgodnie z dostarczonym OpenAPI**, nie `productId/quantity`). Referencje nie wymagają istnienia powiązanego obiektu.
+- Koszyk: `userId`, `products` (tablica pełnych obiektów produktu, nie `productId/quantity`). Referencje nie wymagają istnienia powiązanego obiektu.
 
 POST/PUT/PATCH wymagają `Content-Type: application/json`. Limit body: 1 MB. Walidacja odrzuca nieznane pola, błędne typy, puste ciągi, ujemne ceny i błędne adresy e-mail. ID wejściowe jest opcjonalne.
 

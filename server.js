@@ -3,11 +3,9 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, extname, sep } from 'node:path';
 import { ApiError, handleApi } from './src/api.js';
-import { createSpec } from './src/openapi.js';
 
 const publicDir = fileURLToPath(new URL('./public/', import.meta.url));
 const tokensPath = new URL('./design/design/tokens.css', import.meta.url);
-const spec = createSpec();
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml' };
 
 async function parseBody(req) {
@@ -48,7 +46,6 @@ export function createApp() {
       if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
       const method = req.method === 'HEAD' ? 'GET' : req.method;
       if (pathname === '/health' && method === 'GET') { json(200, { status: 'ok', persistence: false }); return; }
-      if (['/openapi.json', '/docs-data.json'].includes(pathname) && method === 'GET') { json(200, spec); return; }
       if (/^\/(products|users|carts|auth)(\/|$)/.test(pathname)) {
         const result = handleApi(method, pathname, url.searchParams, await parseBody(req), req.headers.authorization);
         json(result.status, result.body, result.headers);
