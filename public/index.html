@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#A3E635">
+  <meta name="description" content="Bezpłatne, stateless REST API do nauki testowania. Produkty, koszyki, użytkownicy i pełny CRUD bez bazy danych.">
+  <title>FakeStore Lab — prawdziwe żądania, fikcyjne dane</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="logo" href="/" aria-label="FakeStore Lab — strona główna"><span class="logo-mark" aria-hidden="true">▣</span> FAKE<span>STORE</span><span class="lab">LAB</span></a>
+      <nav aria-label="Nawigacja główna">
+        <a href="/" data-nav="/">Start</a>
+        <a href="/docs" data-nav="/docs">Dokumentacja</a>
+        <a href="/playground" data-nav="/playground">Playground <span aria-hidden="true">↗</span></a>
+      </nav>
+      <a class="header-status" href="/health"><span class="status-dot"></span> API ONLINE</a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="site-footer"><div><a class="logo small" href="/">FAKE<span>STORE</span> LAB</a><p>Prawdziwe żądania. Fikcyjne dane. Zero ryzyka.</p><p>FakeStoreLab został stworzony przez <a href="https://AkademiaQA.pl">AkademiaQA.pl</a>.</p></div><div><a href="/openapi.json" download="fakestore-openapi.json">OpenAPI 3.1 ↗</a><span>Stworzone do nauki, nie do zakupów.</span></div></footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
